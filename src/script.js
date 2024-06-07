@@ -11,6 +11,8 @@ import testFragmentShader from './shaders/test/fragment.glsl'
 // Debug
 const gui = new GUI()
 
+// ? GUI
+
 // Canvas
 const canvas = document.querySelector('canvas.webgl')
 
@@ -21,6 +23,7 @@ const scene = new THREE.Scene()
  * Textures
  */
 const textureLoader = new THREE.TextureLoader()
+const flagTexture = textureLoader.load('/textures/flag-french.jpg')
 
 /**
  * Test mesh
@@ -41,16 +44,28 @@ geometry.setAttribute('aRandom', new THREE.BufferAttribute(randoms, 1))
 
 // Material
 // const material = new THREE.MeshBasicMaterial()
+
 const material = new THREE.RawShaderMaterial({
   vertexShader: testVertexShader,
   fragmentShader: testFragmentShader,
   // wireframe: false,
   transparent: true,
+  uniforms: {
+    uFrequency: { value: new THREE.Vector2(10, 5) },
+    uTime: { value: 0 },
+    uColor: { value: new THREE.Color('magenta') },
+    uTexture: { value: flagTexture },
+  },
 })
+
+// * DEBUG
+gui.add(material.uniforms.uFrequency.value, 'x', 0, 20, 0.01).name('freqX')
+gui.add(material.uniforms.uFrequency.value, 'y', 0, 20, 0.01).name('freqY')
 gui.add(material, 'wireframe')
 
 // Mesh
 const mesh = new THREE.Mesh(geometry, material)
+mesh.scale.y = 2 / 3
 scene.add(mesh)
 
 /**
@@ -108,6 +123,9 @@ const clock = new THREE.Clock()
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime()
+
+  // Update materials
+  material.uniforms.uTime.value = elapsedTime
 
   // Update controls
   controls.update()
