@@ -1,17 +1,14 @@
-uniform mat4 projectionMatrix;
-uniform mat4 viewMatrix;
-uniform mat4 modelMatrix;
+
 uniform vec2 uFrequency;
 uniform float uTime;
 
 // * retrieve values from the geomtery
-// * Eacj attribute is for each vertex
-attribute vec3 position;
-// attribute float aRandom;
-attribute vec2 uv;
+// * Each attribute is for each vertex
+
+
 
 varying vec2 vUv;
-varying float vElevation;
+varying float vElevation
 
 void main() {
     // * vec4(position, 1.0) to convert position to vector4     

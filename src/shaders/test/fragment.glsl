@@ -2,7 +2,7 @@
 // highp: bad performace, may now work on some devices
 // lowp: good precision, may create bugs
 // mediump: usually used
-precision mediump float;
+// precision mediump float;
 
 uniform vec3 uColor;
 uniform sampler2D uTexture;
